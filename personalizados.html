@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pedidos personalizados · Hilos del Alma</title>
+  <meta name="description" content="Crea tu pulsera, manilla, cadena o rosario personalizado con Hilos del Alma. Cuéntanos tu idea por WhatsApp.">
+  <meta name="theme-color" content="#fbf7f0">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <meta property="og:title" content="Pedidos personalizados · Hilos del Alma">
+  <meta property="og:description" content="Crea tu pulsera, manilla, cadena o rosario personalizado con Hilos del Alma. Cuéntanos tu idea por WhatsApp.">
+  <meta property="og:image" content="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="personalizados">
+<main>
+  <section class="page-head wrap">
+    <p class="eyebrow">Encargos y pedidos</p>
+    <h1>Hecho solo <em>para ti</em></h1>
+    <p class="lead">Tu nombre, una palabra que te sostiene, los colores que amas. Diseñamos contigo una pieza que cuente tu historia.</p>
+  </section>
+
+  <section class="section" style="padding-top:30px">
+    <div class="wrap">
+      <div class="ideas">
+        <div class="idea reveal"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg><h3>Una palabra</h3><p>FE, DIOS, PAZ, tu nombre o la frase que quieras llevar.</p></div>
+        <div class="idea reveal"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 9h10"/></svg><h3>Tu fe</h3><p>Medallas, escapularios y cruces con la imagen que te acompaña.</p></div>
+        <div class="idea reveal"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c2.5-4 5.5-7 9-9"/></svg><h3>Tus colores</h3><p>Perlas, cristales, tonos suaves o intensos, como tú lo imagines.</p></div>
+        <div class="idea reveal"><svg class="ico" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9" width="17" height="11" rx="1.5"/><path d="M12 9v11M3.5 13h17"/></svg><h3>Para regalar</h3><p>Cumpleaños, bautizos, primeras comuniones, agradecimientos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Cómo funciona</p>
+        <h2 class="h2" style="margin-bottom:34px">Tres pasos <em>sencillos</em></h2>
+        <ol class="steps" id="pasos"></ol>
+      </div>
+      <form class="form reveal" data-wa-form>
+        <h2 class="h2" style="font-size:34px">Cuéntanos tu <em>idea</em></h2>
+        <div class="form__row">
+          <div class="field"><label for="nombre">Tu nombre</label><input id="nombre" name="nombre" required autocomplete="given-name"></div>
+          <div class="field"><label for="pieza">¿Qué te gustaría?</label>
+            <select id="pieza" name="pieza"><option>Pulsera o manilla</option><option>Collar o cadena</option><option>Rosario</option><option>Llavero</option><option>Otra idea</option></select></div>
+        </div>
+        <div class="field"><label for="para">¿Para quién o para qué ocasión?</label><input id="para" name="para" placeholder="Para mí, para mi mamá, un bautizo…"></div>
+        <div class="field"><label for="colores">Colores o estilo</label><input id="colores" name="colores" placeholder="Perlas, rosado, dorado, azul…"></div>
+        <div class="field"><label for="mensaje">Algo más que quieras contarnos</label><textarea id="mensaje" name="mensaje" placeholder="Palabra o nombre que quieras, medalla, talla…"></textarea></div>
+        <button class="btn btn--sage" type="submit">Enviar por WhatsApp</button>
+        <p class="form__hint">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/art.js"></script>
+<script src="assets/js/layout.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
