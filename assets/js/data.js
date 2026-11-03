@@ -15,13 +15,17 @@ const SITE = {
 const waLink = (msg) =>
   `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg || 'Hola Hilos del Alma, quiero más información.')}`;
 
-/* Categorías de la colección. `art` dibuja una ilustración cuando aún no hay foto. */
+/* Categorías de la colección. Cuando el sitio está conectado a Supabase, estas se
+   administran desde el panel; aquí quedan como respaldo si no hay conexión. */
 const CATEGORIAS = [
-  { id: 'pulseras', nombre: 'Pulseras y manillas', texto: 'Para cada día, para cada intención.', img: 'dorada' },
-  { id: 'collares', nombre: 'Collares y cadenas', texto: 'Perlas, medallas y detalles que acompañan.', img: 'collar' },
-  { id: 'llaveros', nombre: 'Llaveros', texto: 'Protección y fe que viajan contigo.', img: 'llavero-rojo' },
-  { id: 'rosarios', nombre: 'Rosarios', texto: 'Hechos a tu medida, con tus colores.', art: 'rosario',
-    wa: 'Hola Hilos del Alma, me gustaría un rosario. ¿Me cuentas las opciones?' }
+  { id: 'pulseras',  nombre: 'Pulseras', texto: 'Para cada día, para cada intención.' },
+  { id: 'manillas',  nombre: 'Manillas', texto: 'Con diferentes nombres y significados.' },
+  { id: 'collares',  nombre: 'Collares', texto: 'Perlas, medallas y nombres que te acompañan.' },
+  { id: 'charms',    nombre: 'Charms para bolsos y llaveros', texto: 'Un detalle de fe que viaja contigo.' },
+  { id: 'straps',    nombre: 'Straps para celular', texto: 'Protección y cariño en tu día a día.' },
+  { id: 'hogar',     nombre: 'Bendiciones para el hogar', texto: 'Para que la paz habite tu casa.' },
+  { id: 'carro',     nombre: 'Bendiciones para el carro', texto: 'Para cuidar cada camino.' },
+  { id: 'rosarios',  nombre: 'Rosarios', texto: 'Hechos a tu medida, con tus colores.' }
 ];
 
 /* Las tres líneas que ya conocen en Instagram. */
@@ -31,7 +35,7 @@ const LINEAS = [
   { id: 'personalizados', nombre: 'Personalizados', texto: 'Tu nombre, tu palabra, tus colores. Una pieza única, pensada para ti.', tono: 'sand' }
 ];
 
-/* Piezas de la colección (fotos propias del cliente). Sin precios: se cotiza por WhatsApp. */
+/* Piezas de respaldo (las reales se administran desde el panel). Sin precios: se cotiza por WhatsApp. */
 const PRODUCTOS = [
   { id: 'dorada',   nombre: 'Pulsera dorada con escapulario', cat: 'pulseras', linea: 'fe',
     img: 'dorada', texto: 'Cuentas doradas y bronce con escapulario bordado en cristales. Ajustable.' },
@@ -41,19 +45,19 @@ const PRODUCTOS = [
     img: 'azul', texto: 'Cuentas azul grafito y doradas con escapulario enmarcado.' },
   { id: 'palabras', nombre: 'Pulseras con tu palabra', cat: 'pulseras', linea: 'personalizados',
     img: 'palabras', texto: 'FE, DIOS, PAZ o la palabra que elijas, en los colores que más te gusten.' },
-  { id: 'muneca',   nombre: 'Manillas con medallas', cat: 'pulseras', linea: 'fe',
+  { id: 'muneca',   nombre: 'Manillas con medallas', cat: 'manillas', linea: 'fe',
     img: 'muneca', texto: 'Piedras rosadas y vino con medallas de la Virgen. Se combinan entre sí.' },
-  { id: 'perlas',   nombre: 'Manilla de perlas', cat: 'pulseras', linea: 'amor',
+  { id: 'perlas',   nombre: 'Manilla de perlas', cat: 'manillas', linea: 'amor',
     img: 'perlas', texto: 'Varias vueltas de perlas finas con perlas barrocas en las puntas.' },
   { id: 'collar',   nombre: 'Collar de perlas', cat: 'collares', linea: 'amor',
     img: 'collar', texto: 'Perlas pequeñas con detalles dorados. Delicado y elegante.' },
-  { id: 'llavero-rojo', nombre: 'Llavero Virgen con cuentas rojas', cat: 'llaveros', linea: 'fe',
+  { id: 'llavero-rojo', nombre: 'Llavero Virgen con cuentas rojas', cat: 'charms', linea: 'fe',
     img: 'llavero-rojo', texto: 'Medalla con la Virgen rodeada de cuentas rojas, corazón y dije dorado.' },
-  { id: 'llavero-rosa', nombre: 'Llavero rosado con cruz', cat: 'llaveros', linea: 'fe',
+  { id: 'llavero-rosa', nombre: 'Llavero rosado con cruz', cat: 'charms', linea: 'fe',
     img: 'llavero-rosa', texto: 'Cristales rosados, medalla de la Virgen y borla tejida con cruz.' }
 ];
 
-/* Pieza que se muestra primero en la portada. */
+/* Piezas que se muestran primero en la portada. */
 const DESTACADOS = ['dorada', 'perlas', 'palabras', 'llavero-rojo', 'plateada', 'collar'];
 
 /* Historia real que ya cuentan en su Instagram. */
@@ -68,5 +72,7 @@ const PASOS = [
   { n: '2', t: 'La diseñamos', p: 'Te proponemos colores, medallas y detalles. Tú le das el visto bueno.' },
   { n: '3', t: 'La recibes', p: 'La hacemos con calma y te la enviamos lista para estrenar o regalar.' }
 ];
+
+const MEDALLAS = [];
 
 const IMG = (id) => `assets/img/${id}.webp`;

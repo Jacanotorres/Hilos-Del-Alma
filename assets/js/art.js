@@ -40,5 +40,13 @@ const Art = (() => {
     </svg>`;
   };
 
-  return { icon, sparkle, rosario };
+  /* Ilustración suave para categorías que aún no tienen foto. */
+  const generico = () => `<svg viewBox="0 0 200 250" class="art-rosario" aria-hidden="true">
+      <circle cx="100" cy="115" r="58" fill="none" stroke="#b98e4a" stroke-width=".7" stroke-dasharray="1 4"/>
+      <circle cx="100" cy="115" r="38" fill="none" stroke="#5e3b29" stroke-width="1.1"/>
+      <path d="M100 135s-18-10.5-18-24a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 13.500-18 24-18 24z" fill="#e8bdb0" stroke="#5e3b29" stroke-width="1.2"/>
+      <path d="M100 38v10M100 182v10M30 115h10M160 115h10" stroke="#b98e4a" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>`;
+
+  return { icon, sparkle, rosario, generico };
 })();

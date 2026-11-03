@@ -297,3 +297,46 @@ a.ccard:hover { transform: translateX(6px); border-color: var(--gold); }
   .site-footer__grid { grid-template-columns: 1fr; }
   .head { align-items: flex-start; }
 }
+
+/* ---------- Catálogo: tarjetas, ficha y medallas ---------- */
+button.piece__img { display: block; width: 100%; padding: 0; border: 0; cursor: pointer; font: inherit; }
+.piece__ph { display: grid; place-items: center; width: 100%; height: 100%; padding: 22%; background: linear-gradient(180deg, var(--rose-soft), #fbefe9); }
+.badge { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); background: rgba(251, 247, 240, .92); color: var(--brown); font: 500 11px var(--sans); letter-spacing: .2em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; }
+.badge--n { top: auto; bottom: 14px; background: rgba(94, 59, 41, .78); color: var(--cream); letter-spacing: .12em; }
+.piece__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.piece__price { font: 500 20px var(--serif); color: var(--brown); }
+.search { max-width: 420px; margin: 0 auto 18px; }
+.search input { width: 100%; font: 400 16px var(--sans); color: var(--ink); background: rgba(255, 255, 255, .6); border: 1px solid var(--line); border-radius: 999px; padding: 13px 22px; text-align: center; }
+.search input:focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 4px rgba(138, 154, 124, .2); }
+
+.dlg { border: 0; padding: 0; background: var(--cream); border-radius: 26px; width: min(900px, calc(100% - 28px)); max-height: calc(100dvh - 28px); overflow: auto; color: var(--ink); box-shadow: 0 40px 90px -30px rgba(60, 38, 26, .55); }
+.dlg::backdrop { background: rgba(70, 46, 32, .5); backdrop-filter: blur(3px); }
+.dlg__x { position: absolute; top: 14px; right: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: rgba(251, 247, 240, .9); color: var(--brown); font-size: 16px; cursor: pointer; }
+.dlg__grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(20px, 4vw, 44px); padding: clamp(18px, 3vw, 34px); }
+.dlg__main { aspect-ratio: 3 / 4; background: var(--sand); box-shadow: 0 0 0 1px var(--line); }
+.dlg__main img { width: 100%; height: 100%; object-fit: cover; }
+.dlg__thumbs { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.dlg__thumbs button { width: 58px; height: 58px; padding: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: none; cursor: pointer; opacity: .65; }
+.dlg__thumbs button.is-on { opacity: 1; border-color: var(--gold); }
+.dlg__thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.dlg__info { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-top: 10px; }
+.dlg__info h2 { font-size: clamp(30px, 3.4vw, 42px); }
+.dlg__info p { margin: 0; color: var(--brown-2); }
+.dlg__price { font: 500 26px var(--serif); color: var(--brown); }
+.dlg__price i { font: 400 14px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--rose); }
+.dlg__sig { border-left: 2px solid var(--gold); padding: 4px 0 4px 16px; background: linear-gradient(90deg, rgba(185, 142, 74, .08), transparent); }
+.dlg__sig small { display: block; font-size: 11.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.dlg__info .btn { margin-top: 8px; }
+
+.medals { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px 22px; }
+.medal { text-align: center; padding: 8px; }
+.medal__img { width: 132px; height: 132px; margin: 0 auto 16px; border-radius: 50%; overflow: hidden; background: var(--sand); box-shadow: 0 0 0 1px var(--gold), 0 0 0 7px var(--cream), 0 0 0 8px var(--line); display: grid; place-items: center; }
+.medal__img img { width: 100%; height: 100%; object-fit: cover; }
+.medal__img--ph .sparkle { width: 34px; height: 34px; }
+.medal h3 { font-size: 24px; margin-bottom: 6px; }
+.medal p { font-size: 15.5px; color: var(--brown-2); margin: 0; }
+
+@media (max-width: 760px) {
+  .dlg__grid { grid-template-columns: 1fr; }
+  .dlg__main { aspect-ratio: 1 / 1; border-radius: 999px 999px var(--r) var(--r); }
+}
