@@ -14,6 +14,7 @@ const Art = (() => {
     cross: '<path d="M12 3v18M7 9h10"/>',
     send: '<path d="M4 12 20 4l-4 16-4.5-6.5L4 12z"/><path d="M11.5 13.5 20 4"/>',
     truck: '<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7.5" cy="17.5" r="1.7"/><circle cx="17" cy="17.5" r="1.7"/>',
+    user: '<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-4 3.8-6 7.5-6s6.700 2 7.500 6"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>'
   };
   const icon = (name, size = 22, sw = 1.4) =>

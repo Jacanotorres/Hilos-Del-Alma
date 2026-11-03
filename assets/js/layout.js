@@ -20,6 +20,7 @@
       </a>
       <nav class="nav" id="nav" aria-label="Principal">
         ${links}
+        <a class="btn btn--ghost btn--sm nav__login" href="login.html">${Art.icon('user', 18)} <span>Ingresar</span></a>
         <a class="btn btn--sm nav__cta" href="${waLink('Hola Hilos del Alma, quiero información.')}" target="_blank" rel="noopener">${Art.icon('wa', 18)} <span>WhatsApp</span></a>
       </nav>
       <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
@@ -49,7 +50,7 @@
     </div>
     <div class="wrap site-footer__bar">
       <span>© ${new Date().getFullYear()} ${SITE.nombre} · ${SITE.slogan}</span>
-      <a href="#top">Volver arriba ↑</a>
+      <span><a href="login.html">Ingresar al panel</a> · <a href="#top">Volver arriba ↑</a></span>
     </div>
   </footer>
   <a class="wa-float" href="${waLink('Hola Hilos del Alma, quiero información.')}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">${Art.icon('wa', 26)}</a>`;
