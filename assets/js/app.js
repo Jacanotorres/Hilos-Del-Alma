@@ -159,6 +159,7 @@
           <b class="dlg__price">${p.precio != null ? Catalogo.precio(p.precio) : 'Consulta el precio'}${p.agotado ? ' · <i>Agotado</i>' : ''}</b>
           ${p.texto ? `<p>${esc(p.texto)}</p>` : ''}
           ${p.significado ? `<div class="dlg__sig"><small>Qué significa</small><p>${esc(p.significado)}</p></div>` : ''}
+          <p class="dlg__ship">${Art.icon('truck', 18)} Envíos a todo el país</p>
           <a class="btn btn--sage" href="${pedido(p)}" target="_blank" rel="noopener">${Art.icon('wa', 18)} ${p.agotado ? 'Preguntar disponibilidad' : 'Pedir por WhatsApp'}</a>
         </div>
       </div>`;

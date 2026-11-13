@@ -28,6 +28,7 @@
     setTimeout(() => t.remove(), 3700);
   };
   const fallo = (e, que) => { console.error(e); toast(`No se pudo ${que}. ${e && e.message ? e.message : ''}`.trim(), 'err'); };
+  const miles = (n) => String(n).replace(/\D/g, '').replace(/^0+(?=\d)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   const precioTxt = (n) => n == null ? 'Sin precio' : new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n);
   const slug = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'categoria';
   const uid = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
@@ -160,7 +161,7 @@
           <div class="field"><label for="f-nombre">Nombre de la pieza *</label><input id="f-nombre" required maxlength="120" value="${esc(p?.nombre)}" placeholder="Ej: Collar Esperanza"></div>
           <div class="frow">
             <div class="field"><label for="f-cat">Categoría</label><select id="f-cat"><option value="">Sin categoría</option>${S.cats.map(c => `<option value="${esc(c.id)}"${p?.categoria_id === c.id ? ' selected' : ''}>${esc(c.nombre)}</option>`).join('')}</select></div>
-            <div class="field"><label for="f-precio">Precio (COP)</label><input id="f-precio" type="number" inputmode="numeric" min="0" step="500" value="${p?.precio ?? ''}" placeholder="Vacío = “Consulta el precio”"></div>
+            <div class="field"><label for="f-precio">Precio (COP)</label><div class="money"><span>$</span><input id="f-precio" type="text" inputmode="numeric" autocomplete="off" value="${p?.precio != null ? miles(p.precio) : ''}" placeholder="45.000"></div><small class="muted">Vacío = “Consulta el precio”</small></div>
           </div>
           <div class="field"><label for="f-desc">Descripción</label><textarea id="f-desc" rows="3" placeholder="Materiales, colores, tamaño…">${esc(p?.descripcion)}</textarea></div>
           <div class="field"><label for="f-sig">Qué significa (medalla o pieza)</label><textarea id="f-sig" rows="3" placeholder="Opcional. Se muestra en la ficha de la pieza.">${esc(p?.significado)}</textarea></div>
@@ -171,9 +172,10 @@
             <label class="chk"><input type="checkbox" id="f-destacado" ${p?.destacado ? 'checked' : ''}><span>Destacar en el inicio</span></label>
             <label class="chk"><input type="checkbox" id="f-agotado" ${p?.agotado ? 'checked' : ''}><span>Marcar como agotado</span></label>
           </div>
-          <div class="field"><label>Fotos <small class="muted">La primera es la portada</small></label>
+          <div class="field"><label>Fotos</label>
+            <p class="fotos__ayuda">Arrastra las fotos para cambiar el orden. La primera es la portada; toca ★ en otra para hacerla portada.</p>
             <div class="fotos" id="fotos"></div>
-            <label class="btn btn--ghost btn--sm fotos__add"><input type="file" id="f-files" accept="image/*" multiple hidden>+ Agregar fotos</label>
+            <input type="file" id="f-files" accept="image/*" multiple hidden>
           </div>
         </div>
         <footer class="pdlg__f">
@@ -182,45 +184,58 @@
         </footer>
       </form>`;
     const pintarFotos = () => {
-      $('#fotos').innerHTML = fotos.length ? fotos.map((f, i) => `
+      $('#fotos').innerHTML = fotos.map((f, i) => `
         <figure class="foto${i === 0 ? ' is-cover' : ''}">
-          <img src="${esc(f.blob || f.url)}" alt="">
-          ${i === 0 ? '<span class="foto__tag">Portada</span>' : ''}
-          <div class="foto__act">
-            <button type="button" data-izq="${i}" aria-label="Mover a la izquierda"${i === 0 ? ' disabled' : ''}>←</button>
-            <button type="button" data-der="${i}" aria-label="Mover a la derecha"${i === fotos.length - 1 ? ' disabled' : ''}>→</button>
-            <button type="button" data-qt="${i}" aria-label="Quitar foto">✕</button>
-          </div>
-        </figure>`).join('') : '<p class="muted fotos__vacio">Aún no hay fotos.</p>';
+          <img src="${esc(f.blob || f.url)}" alt="Foto ${i + 1}" draggable="false">
+          ${i === 0 ? '<span class="foto__tag">Portada</span>' : `<button type="button" class="foto__btn foto__star" data-portada="${i}" aria-label="Hacer portada" title="Hacer portada">★</button>`}
+          <button type="button" class="foto__btn foto__x" data-qt="${i}" aria-label="Quitar foto" title="Quitar">✕</button>
+        </figure>`).join('') +
+        `<label class="foto-add" for="f-files"><span>+</span>${fotos.length ? 'Agregar' : 'Agregar fotos'}</label>`;
     };
     pintarFotos();
+    const mover = (de, a) => { if (de === a) return; fotos.splice(a, 0, fotos.splice(de, 1)[0]); pintarFotos(); };
+    if (window.Sortable) {
+      Sortable.create($('#fotos'), {
+        draggable: '.foto', filter: '.foto__btn', preventOnFilter: false, animation: 160,
+        delay: 140, delayOnTouchOnly: true, touchStartThreshold: 6,
+        ghostClass: 'foto--ghost', chosenClass: 'foto--chosen',
+        onEnd: ev => { if (ev.oldIndex !== ev.newIndex) mover(ev.oldIndex, ev.newIndex); }
+      });
+    }
     $('#fotos').addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
-      const d = b.dataset; const mover = (i, j) => { [fotos[i], fotos[j]] = [fotos[j], fotos[i]]; };
-      if (d.izq) mover(+d.izq, +d.izq - 1);
-      else if (d.der) mover(+d.der, +d.der + 1);
-      else if (d.qt) { const [q] = fotos.splice(+d.qt, 1); if (q.blob) URL.revokeObjectURL(q.blob); }
+      const d = b.dataset;
+      if (d.portada) mover(+d.portada, 0);
+      else if (d.qt) { const [q] = fotos.splice(+d.qt, 1); if (q.blob) URL.revokeObjectURL(q.blob); pintarFotos(); }
+    });
+    const agregar = (lista) => {
+      const imgs = [...lista].filter(f => f.type.startsWith('image/'));
+      if (imgs.length < lista.length) toast('Solo se pueden subir imágenes', 'err');
+      imgs.forEach(file => fotos.push({ file, blob: URL.createObjectURL(file) }));
       pintarFotos();
-    });
-    $('#f-files').addEventListener('change', e => {
-      [...e.target.files].forEach(file => fotos.push({ file, blob: URL.createObjectURL(file) }));
-      e.target.value = ''; pintarFotos();
-    });
+    };
+    $('#f-files').addEventListener('change', e => { agregar(e.target.files); e.target.value = ''; });
+    /* Soltar archivos directamente sobre la zona de fotos */
+    const zona = $('#fotos');
+    const esArchivo = e => e.dataTransfer && [...e.dataTransfer.types].includes('Files');
+    zona.addEventListener('dragover', e => { if (esArchivo(e)) { e.preventDefault(); zona.classList.add('is-drop'); } });
+    zona.addEventListener('dragleave', () => zona.classList.remove('is-drop'));
+    zona.addEventListener('drop', e => { if (esArchivo(e)) { e.preventDefault(); zona.classList.remove('is-drop'); agregar(e.dataTransfer.files); } });
     m.onclick = e => { if (e.target.closest('[data-cerrar]') || e.target === m) m.close(); };
+    $('#f-precio').addEventListener('input', e => { e.target.value = miles(e.target.value); });
 
     $('#fp').addEventListener('submit', async e => {
       e.preventDefault();
       const nombre = $('#f-nombre').value.trim();
       if (!nombre) { toast('Escribe el nombre de la pieza', 'err'); $('#f-nombre').focus(); return; }
-      const precioV = $('#f-precio').value.trim();
+      const precioV = $('#f-precio').value.replace(/\D/g, '');
       const datos = {
         nombre, categoria_id: $('#f-cat').value || null, linea: $('#f-linea').value || null,
         descripcion: $('#f-desc').value.trim() || null, significado: $('#f-sig').value.trim() || null,
-        precio: precioV === '' ? null : Math.round(Number(precioV)),
+        precio: precioV === '' ? null : Number(precioV),
         visible: $('#f-visible').checked, destacado: $('#f-destacado').checked, agotado: $('#f-agotado').checked,
         updated_at: new Date().toISOString()
       };
-      if (datos.precio != null && (!Number.isFinite(datos.precio) || datos.precio < 0)) { toast('El precio no es válido', 'err'); return; }
       const btn = $('#guardar'); btn.disabled = true; btn.textContent = 'Guardando…';
       try {
         let id = p?.id;
@@ -354,11 +369,11 @@
           <div class="field"><label for="m-sig">Qué significa</label><textarea id="m-sig" rows="4" placeholder="Qué representa y para quién es">${esc(x?.significado)}</textarea></div>
           <div class="field"><label>Foto</label>
             <div class="fotos" id="mfoto"></div>
-            <label class="btn btn--ghost btn--sm fotos__add"><input type="file" id="m-file" accept="image/*" hidden>Elegir foto</label></div>
+            <input type="file" id="m-file" accept="image/*" hidden></div>
         </div>
         <footer class="pdlg__f"><button type="button" class="btn btn--ghost" data-cerrar>Cancelar</button><button type="submit" class="btn btn--sage" id="guardar">Guardar</button></footer>
       </form>`;
-    const pintar = () => { $('#mfoto').innerHTML = (preview || foto) ? `<figure class="foto is-cover"><img src="${esc(preview || foto)}" alt=""><div class="foto__act"><button type="button" data-qt>✕</button></div></figure>` : '<p class="muted fotos__vacio">Sin foto.</p>'; };
+    const pintar = () => { $('#mfoto').innerHTML = (preview || foto) ? `<figure class="foto is-cover" style="cursor:default"><img src="${esc(preview || foto)}" alt=""><button type="button" class="foto__btn foto__x" data-qt aria-label="Quitar foto">✕</button></figure>` : '<label class="foto-add" for="m-file"><span>+</span>Elegir foto</label>'; };
     pintar();
     $('#mfoto').addEventListener('click', e => { if (e.target.closest('[data-qt]')) { foto = null; archivo = null; preview = null; pintar(); } });
     $('#m-file').addEventListener('change', e => { const f = e.target.files[0]; if (f) { archivo = f; preview = URL.createObjectURL(f); pintar(); } e.target.value = ''; });

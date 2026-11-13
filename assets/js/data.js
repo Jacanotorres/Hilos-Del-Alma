@@ -7,9 +7,10 @@ const SITE = {
   whatsapp: '573148638807',
   telefono: '+57 314 863 8807',
   instagram: 'hilosdelalma____',
+  tiktok: 'hilosdelalma_cali',
   correo: '',
   horario: '',
-  envios: 'Hacemos envíos. Escríbenos y te contamos cómo llega a tus manos.'
+  envios: 'Envíos a todo el país'
 };
 
 const waLink = (msg) =>

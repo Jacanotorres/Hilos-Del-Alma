@@ -11,6 +11,9 @@
   const links = NAV.map(([href, label, id]) =>
     `<a href="${href}"${id === page ? ' class="is-active" aria-current="page"' : ''}>${label}</a>`).join('');
 
+  const topbar = `
+  <div class="topbar"><div class="wrap">${Art.icon('truck', 18)}<span><b>Envíos a todo el país</b><i> · desde Cali y Popayán hasta tu puerta</i></span></div></div>`;
+
   const header = `
   <header class="site-header" id="top">
     <div class="wrap site-header__in">
@@ -42,6 +45,8 @@
         <ul class="flist">
           <li>${Art.icon('wa', 18)}<a href="${waLink()}" target="_blank" rel="noopener">${SITE.telefono}</a></li>
           ${SITE.instagram ? `<li>${Art.icon('insta', 18)}<a href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener">@${SITE.instagram}</a></li>` : ''}
+          ${SITE.tiktok ? `<li>${Art.icon('tiktok', 18)}<a href="https://www.tiktok.com/@${SITE.tiktok}" target="_blank" rel="noopener">@${SITE.tiktok}</a></li>` : ''}
+          ${SITE.envios ? `<li>${Art.icon('truck', 18)}<span><b>${SITE.envios}</b></span></li>` : ''}
           ${SITE.correo ? `<li>${Art.icon('mail', 18)}<a href="mailto:${SITE.correo}">${SITE.correo}</a></li>` : ''}
           ${SITE.ciudad ? `<li>${Art.icon('pin', 18)}<span>${SITE.ciudad}</span></li>` : ''}
           ${SITE.horario ? `<li>${Art.icon('clock', 18)}<span>${SITE.horario}</span></li>` : ''}
@@ -55,7 +60,7 @@
   </footer>
   <a class="wa-float" href="${waLink('Hola Hilos del Alma, quiero información.')}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">${Art.icon('wa', 26)}</a>`;
 
-  document.body.insertAdjacentHTML('afterbegin', header);
+  document.body.insertAdjacentHTML('afterbegin', topbar + header);
   document.body.insertAdjacentHTML('beforeend', footer);
 
   const burger = document.getElementById('burger');
