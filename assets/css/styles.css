@@ -363,3 +363,12 @@ button.piece__img { display: block; width: 100%; padding: 0; border: 0; cursor: 
   .topbar i { display: none; }
   .ship { font-size: 14.5px; }
 }
+
+/* Redes en la portada y en la barra superior */
+.hero__social { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.chip-social { display: inline-flex; align-items: center; gap: 9px; padding: 10px 18px; border-radius: 999px; background: var(--cream-2, #f3ebdd); border: 1px solid rgba(94, 59, 41, .25); color: var(--brown); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; transition: background .25s, color .25s; }
+.chip-social:hover { background: var(--brown); color: var(--cream); }
+.topbar__social { display: flex; gap: 14px; margin-left: 18px; padding-left: 18px; border-left: 1px solid rgba(251, 247, 240, .3); }
+.topbar__social a { display: inline-flex; align-items: center; gap: 6px; color: var(--cream); letter-spacing: .1em; }
+.topbar__social a:hover { color: #e9c98d; }
+@media (max-width: 620px) { .topbar__social { margin-left: 10px; padding-left: 10px; } .topbar__social span { display: none; } }

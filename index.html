@@ -30,6 +30,7 @@
           <a class="btn" href="coleccion.html">Ver colección</a>
           <a class="btn btn--ghost" href="personalizados.html">Pedir algo personalizado</a>
         </div>
+        <div class="hero__social" id="heroSocial"></div>
       </div>
       <div class="hero__art">
         <div class="hero__glow"></div>
@@ -156,5 +157,8 @@
 <script src="assets/js/catalogo.js"></script>
 <script src="assets/js/layout.js"></script>
 <script src="assets/js/app.js"></script>
+<script>document.getElementById('heroSocial').innerHTML =
+  '<a class="chip-social" href="https://www.tiktok.com/@' + SITE.tiktok + '" target="_blank" rel="noopener">' + Art.icon('tiktok', 18) + 'TikTok</a>' +
+  '<a class="chip-social" href="https://www.instagram.com/' + SITE.instagram + '/" target="_blank" rel="noopener">' + Art.icon('insta', 18) + 'Instagram</a>';</script>
 </body>
 </html>

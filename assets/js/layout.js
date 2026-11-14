@@ -12,7 +12,11 @@
     `<a href="${href}"${id === page ? ' class="is-active" aria-current="page"' : ''}>${label}</a>`).join('');
 
   const topbar = `
-  <div class="topbar"><div class="wrap">${Art.icon('truck', 18)}<span><b>Envíos a todo el país</b><i> · desde Cali y Popayán hasta tu puerta</i></span></div></div>`;
+  <div class="topbar"><div class="wrap">${Art.icon('truck', 18)}<span><b>Envíos a todo el país</b><i> · desde Cali y Popayán hasta tu puerta</i></span>
+    <div class="topbar__social">
+      <a href="https://www.tiktok.com/@${SITE.tiktok}" target="_blank" rel="noopener" aria-label="TikTok">${Art.icon('tiktok', 16)}<span>TikTok</span></a>
+      <a href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Instagram">${Art.icon('insta', 16)}<span>Instagram</span></a>
+    </div></div></div>`;
 
   const header = `
   <header class="site-header" id="top">
